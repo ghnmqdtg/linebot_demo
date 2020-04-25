@@ -11,17 +11,16 @@ from linebot.models import (
 )
 
 import os
-import configparser
-
-config = configparser.ConfigParser()
-config.read('config.ini')
 
 app = Flask(__name__)
 
+ACCESS_TOKEN = os.environ.get('ACCESS_TOKEN')
+SECRET = os.environ.get('SECRET')
+
 # channel access token
-line_bot_api = LineBotApi(config.get('line-bot', 'channel_access_token'))
+line_bot_api = LineBotApi(ACCESS_TOKEN)
 # channel secret
-handler = WebhookHandler(config.get('line-bot', 'channel_secret'))
+handler = WebhookHandler(SECRET)
 
 # monitor all post request info from /callback
 @app.route("/callback", methods=['POST'])
